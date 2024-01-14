@@ -11,6 +11,7 @@ function getGoogleCredentials() {
 		throw new Error("Missing GOOGLE_CLIENT_ID");
 	}
 	if (!clientSecret || clientSecret.length === 0) {
+		console.log("No Secret");
 		throw new Error("Missing GOOGLE_CLIENT_SECRET");
 	}
 
