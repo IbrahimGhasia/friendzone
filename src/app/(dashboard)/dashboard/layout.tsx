@@ -8,6 +8,8 @@ import { FC, ReactNode } from "react";
 import SignOutButton from "@/components/SignOutButton";
 import FriendRequestsSidebarOptions from "@/components/FriendRequestsSidebarOptions";
 import { fetchRedis } from "@/helpers/redis";
+import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
+import SidebarChatList from "@/components/SidebarChatList";
 
 interface layoutProps {
 	children: ReactNode;
@@ -33,6 +35,8 @@ const layout: FC<layoutProps> = async ({ children }) => {
 	const session = await getServerSession(authOptions);
 	if (!session) notFound();
 
+	const friends = await getFriendsByUserId(session.user.id);
+
 	const unseenRequestCount = (
 		(await fetchRedis(
 			"smembers",
@@ -50,13 +54,20 @@ const layout: FC<layoutProps> = async ({ children }) => {
 					<Icons.Logo className="h-8 w-auto text-indigo-600" />
 				</Link>
 
-				<div className="text-xs font-semibold leading-6 text-gray-400">
-					Your chats
-				</div>
+				{friends.length > 0 ? (
+					<div className="text-xs font-semibold leading-6 text-gray-400">
+						Your chats
+					</div>
+				) : null}
 
 				<nav className="flex flex-1 flex-col">
 					<ul role="list" className="flex flex-1 flex-col gap-y-7">
-						<li>Chats that this user has</li>
+						<li>
+							<SidebarChatList
+								friends={friends}
+								sessionId={session.user.id}
+							/>
+						</li>
 						<li>
 							<div className="text-xs font-semibold leading-6 text-gray-400">
 								Overview
@@ -81,14 +92,15 @@ const layout: FC<layoutProps> = async ({ children }) => {
 										</li>
 									);
 								})}
+								<li>
+									<FriendRequestsSidebarOptions
+										sessionId={session.user.id}
+										initialUnseenRequestCount={
+											unseenRequestCount
+										}
+									/>
+								</li>
 							</ul>
-						</li>
-
-						<li>
-							<FriendRequestsSidebarOptions
-								sessionId={session.user.id}
-								initialUnseenRequestCount={unseenRequestCount}
-							/>
 						</li>
 
 						<li className="-mx-6 mt-auto flex items-center">
