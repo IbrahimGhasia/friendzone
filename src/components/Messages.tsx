@@ -1,12 +1,14 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { FC, useRef, useState } from "react";
+import { cn, toPusherKey } from "@/lib/utils";
+import { FC, useEffect, useRef, useState } from "react";
 import { format } from "date-fns";
 import Image from "next/image";
+import { pusherClient } from "@/lib/pusher";
 
 interface MessagesProps {
 	initialMessages: Message[];
 	sessionId: string;
+	chatId: string;
 	sessionImg: string | null | undefined;
 	chatPartner: User;
 }
@@ -14,15 +16,31 @@ interface MessagesProps {
 const Messages: FC<MessagesProps> = ({
 	initialMessages,
 	sessionId,
+	chatId,
 	sessionImg,
 	chatPartner,
 }) => {
 	const [messages, setMessages] = useState<Message[]>(initialMessages);
 
+	useEffect(() => {
+		pusherClient.subscribe(toPusherKey(`chat:${chatId}`));
+
+		const messageHandler = (message: Message) => {
+			setMessages((prev) => [message, ...prev]);
+		};
+
+		pusherClient.bind("incoming-message", messageHandler);
+
+		return () => {
+			pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`));
+			pusherClient.unbind("incoming-message", messageHandler);
+		};
+	}, []);
+
 	const scrollDownRef = useRef<HTMLDivElement | null>(null);
 
 	const formatTimestamp = (timestamp: number) => {
-		return format(timestamp, "hh:mm:bb");
+		return format(timestamp, "HH:mm");
 	};
 
 	return (
