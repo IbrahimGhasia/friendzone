@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FriendZone - Realtime Chat Application
 
-## Getting Started
+FriendZone is a real-time chat application built using Next.js 14, Tailwind CSS, and various other technologies to provide a seamless and engaging user experience for chatting with friends. The application leverages Upstash (Redis Database) for efficient data storage, Pusher for real-time communication, and Next/Auth for user authentication. The project also integrates other libraries such as `@tailwindcss/forms`, `react-hook-form`, `@hookform/resolver`, `zod`, `react textarea autosize`, and `React Hot Toast` for enhanced functionality and styling.
 
-First, run the development server:
+## LIVE Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   <a href="https://friendzone-puce.vercel.app/login" target="_blank">Live Demo</a>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   **Upstash (Redis Database):** Efficiently manages and stores data to enable real-time communication and interactions.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+-   **Pusher:** Facilitates real-time communication, enabling instant updates and interactions between users.
 
-## Learn More
+-   **Next.js 14:** The application is built on the latest version of Next.js, leveraging its powerful features for server-side rendering and routing.
 
-To learn more about Next.js, take a look at the following resources:
+-   **Tailwind CSS:** Provides a utility-first CSS framework for styling the frontend, ensuring a clean and responsive design.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. **Authentication using Next/Auth:** Secure and streamlined user authentication process.
 
-## Deploy on Vercel
+2. **Sending Friend Requests:** Users can send friend requests to connect with others.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Seeing Friend Requests:** Display of incoming friend requests for user acknowledgment.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. **Accepting or Declining Friend Requests:** Users can accept or decline friend requests, controlling their connections.
+
+5. **Real-time Features using Pusher:** Seamless real-time communication, enabling instant updates and messages.
+
+6. **Route Protection using Middleware:** Added security by protecting routes with middleware, ensuring authorized access.
+
+7. **Loading State:** Implemented loading states for a smoother user experience during data retrieval.
+
+8. **Upstash Redis Database:** Leveraging Upstash for efficient and reliable data storage.
+
+9. **Tailwind CSS for Frontend Styling:** A clean and responsive design using Tailwind CSS for a modern and visually appealing interface.
+
+## Project MAP
+
+<img src="public/FriendZone.png" />
+
+Happy chatting in the FriendZone! 🚀
