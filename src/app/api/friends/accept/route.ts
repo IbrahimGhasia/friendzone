@@ -52,8 +52,6 @@ export async function POST(req: Request) {
 		);
 
 		return new Response("Ok");
-
-		console.log("hasFriendRequest?", hasFriendRequest);
 	} catch (error) {
 		if (error instanceof z.ZodError) {
 			return new Response("Invalid request payload", { status: 422 });

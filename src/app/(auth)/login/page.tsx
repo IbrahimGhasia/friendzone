@@ -2,6 +2,7 @@
 
 import Button from "@/components/ui/Button";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import { FC, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -39,7 +40,13 @@ const Page: FC<pageProps> = ({}) => {
 						onClick={loginWithGoogle}
 					>
 						{isLoading ? null : (
-							<img src="/google.svg" className="w-4 h-4 mr-2" />
+							<Image
+								src="/google.svg"
+								className="w-4 h-4 mr-2"
+								alt="Google Login"
+								width={4}
+								height={4}
+							/>
 						)}
 						Google
 					</Button>
